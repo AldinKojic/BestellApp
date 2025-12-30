@@ -4,11 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homie's BurgerHouse</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./basekt.css" />
+    <script defer src="./templateSalads.js"></script>
+    <script defer src="db-salads.js"></script>
+    <script defer src="db-pizza.js"></script>
+    <script defer src="./templatePizzas.js"></script>
+    <script defer src="./template.js"></script>
+    <script defer src="./db.js"></script>
+    <script defer src="./script.js"></script>
   </head>
-  <link rel="stylesheet" href="./style.css" />
-  <script src="./db.js"></script>
-  <script src="./script.js"></script>
-  <body>
+
+  <body onload="renderMeals()">
     <header class="content-header">
       <img
         class="header-img"
@@ -33,37 +40,68 @@
       </section>
     </section>
     <section class="brand-content">
-      <h1><span class="brand-name">Homie'</span>s BurgerHouse</h1>
+      <div class="bewertung-symbol">
+        <h1><span class="brand-name">Homie'</span>s BurgerHouse</h1>
+        <img
+          class="bewertung-icon"
+          src="./img's/icons-lightmode/bewertungen.png"
+          alt=""
+        />
+      </div>
       <p class="brand-description">
         The best of Burgers, Pizza, and Greens, all in one great place.
       </p>
     </section>
+    <aside class="basket">
+      <h3>Your Basket</h3>
+<div class="basket-wrapper">
+      <section class="inner-basket">
+        <div class="scrollable-container">
+          <div id="basket-content" class="miniBasket"></div>
+        </div>
+      </section>
+      <div class="total">
+        <div class="test">
+        <p>Subtotal</p>
+        <p>total</p>
+</div>
+<div class="test">
+        <p>Delivery fee</p>
+        <p>4,99€</p>
+        </div>
+        <div class="divider"></div>
+        <div class="test">
+        <p>Total </p>
+        <p>summe</p>
+        </div>
+        </div>
+
+        <button class="basket-button">Buy now()</button>
+    </aside>
+
     <section class="menu-section">
       <div class="headlines">
         <h2>Burger & Sandwiches</h2>
       </div>
-
-      <aside class="basket">
-        <h3>Basket</h3>
-      </aside>
     </section>
 
-    <main class="content-area">
-      <section class="meal-card">
-        <img
-          class="meal-picture"
-          src="./img's/pictures/Burgers/veggi-mushroom-black-burger.jpg"
-          alt=""
-        />
-        <div class="meal-content">
-          <h2 class="meal-headline">Veggie mushroom black burger</h2>
-          <p>Mixed green salad, Tomatoes, Edamame, Mushrooms</p>
-        </div>
-        <div class="meal-price">
-          <p>16,00€</p>
-        </div>
-      </section>
-    </main>
+    <div id="content"></div>
+
+    <section class="menu-section">
+      <div class="headlines">
+        <h2>Pizza</h2>
+      </div>
+    </section>
+
+    <div id="pizza"></div>
+
+    <section class="menu-section">
+      <div class="headlines">
+        <h2>Salads</h2>
+      </div>
+    </section>
+    <div id="salads"></div>
+
     <footer class="footer">
       <p>2025 Homie's BurgerHouse</p>
       <p>Imprint</p>

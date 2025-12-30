@@ -1,0 +1,117 @@
+h3 {
+  display: flex;
+  justify-content: center;
+}
+.basket-price {
+  margin-top: 5px;
+}
+.basket-delte-icon {
+  margin-top: 5px;
+}
+.basket-item-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 10px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+h5 {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  font-size: 22px;
+  margin-right: 50px;
+  margin-left: 10px;
+}
+
+.basket {
+  right: 0;
+  width: 430px;
+  height: 100vh;
+  background-color: #363534;
+  color: white;
+  padding-top: 20px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  font-size: 30px;
+  position: absolute;
+  top: 500px;
+  
+}
+
+.inner-basket {
+  display: block;
+  padding: 0 10px;
+  color: black;
+}
+
+.miniBasket {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 20px;
+}
+
+.basket-content {
+  background-color: #fdeadc;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 0;
+}
+
+.scrollable-container {
+  overflow-y: scroll;
+  max-height: 380px;
+
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fdeadc;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff6a00;
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px 0 30px;
+  font-size: 20px;
+  margin-top: 30px;
+      gap: 5px;
+
+}
+.test{
+  display: flex;
+  justify-content:space-between;
+}
+
+.basket-wrapper{
+      margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.basket-button{
+  color: white;
+  background-color: #ff6a00;
+  height: 44px;
+    border-radius: 60px;
+    font-size: 20px;
+    margin-top: 20px;
+  
+}
+.divider {
+  border-top: 1px solid #ccc;
+  margin: 12px 0;
+}
+
