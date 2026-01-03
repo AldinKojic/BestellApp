@@ -6,16 +6,26 @@
     <title>Homie's BurgerHouse</title>
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./basekt.css" />
-    <script defer src="./templateSalads.js"></script>
-    <script defer src="db-salads.js"></script>
-    <script defer src="db-pizza.js"></script>
-    <script defer src="./templatePizzas.js"></script>
+    <link rel="stylesheet" href="./modal.css" />
+    <link rel="stylesheet" href="./responsive.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./img's/icons-lightmode/logo-burger.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Martel:wght@200;300;400;600;700;800;900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script defer src="./template.js"></script>
+    <script defer src="./mobile-template.js"></script>
     <script defer src="./db.js"></script>
     <script defer src="./script.js"></script>
   </head>
 
-  <body onload="renderMeals()">
+  <body onload=" init() ">
     <header class="content-header">
       <img
         class="header-img"
@@ -52,60 +62,145 @@
         The best of Burgers, Pizza, and Greens, all in one great place.
       </p>
     </section>
-    <aside class="basket">
-      <h3>Your Basket</h3>
-<div class="basket-wrapper">
-      <section class="inner-basket">
-        <div class="scrollable-container">
-          <div id="basket-content" class="miniBasket"></div>
-        </div>
+
+    <main class="page">
+      <section class="menu-area">
+        <section class="menu-section">
+          <div class="headlines">
+            <h2>Burger & Sandwiches</h2>
+          </div>
+        </section>
+        <div id="burger"></div>
+
+        <section class="menu-section">
+          <div class="headlines">
+            <h2>Pizza</h2>
+          </div>
+        </section>
+        <div id="pizza"></div>
+
+        <section class="menu-section">
+          <div class="headlines">
+            <h2>Salads</h2>
+          </div>
+        </section>
+        <div id="salad"></div>
       </section>
-      <div class="total">
-        <div class="test">
-        <p>Subtotal</p>
-        <p>total</p>
-</div>
-<div class="test">
-        <p>Delivery fee</p>
-        <p>4,99€</p>
+
+      <aside class="basket">
+        <h3>Your Basket</h3>
+
+        <div class="basket-wrapper">
+          <section class="inner-basket">
+            <div class="scrollable-container">
+              <div id="basket-content" class="miniBasket"></div>
+            </div>
+          </section>
+
+          <div class="total">
+            <div class="total-row">
+              <p>Subtotal</p>
+              <p id="subtotal-value">0,00€</p>
+            </div>
+
+            <div class="total-row">
+              <p>Delivery fee</p>
+              <p id="delivery-value">0,00€</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="total-row">
+              <p>Total</p>
+              <p id="total-value">0,00€</p>
+            </div>
+          </div>
+          <div id="basket-alert" class="hidden"></div>
+          <button
+            class="basket-button"
+            id="buy-now-button"
+            onclick=" orderConfirmed()"
+          >
+            Buy now(0,00€)
+          </button>
         </div>
-        <div class="divider"></div>
-        <div class="test">
-        <p>Total </p>
-        <p>summe</p>
+      </aside>
+      <!-- mobile-basket -->
+      <div id="mobile-cart" class="mobile-cart hidden">
+        <div class="mobile-cart-header">
+          <h3>Your Basket</h3>
+          <button class="mobile-cart-close" onclick="closeCart()">✕</button>
         </div>
+
+        <div class="basket-wrapper">
+          <section class="inner-basket">
+            <div class="scrollable-container">
+              <div id="basket-content-mobile" class="miniBasket"></div>
+            </div>
+          </section>
+
+          <div class="total">
+            <div class="total-row">
+              <p>Subtotal</p>
+              <p id="subtotal-value-mobile">0,00€</p>
+            </div>
+
+            <div class="total-row">
+              <p>Delivery fee</p>
+              <p id="delivery-value-mobile">0,00€</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="total-row">
+              <p>Total</p>
+              <p id="total-value-mobile">0,00€</p>
+            </div>
+          </div>
+
+          <div id="basket-alert-mobile" class="hidden"></div>
+
+          <button class="basket-button" onclick="orderConfirmedMobile()">
+            Buy now
+          </button>
         </div>
-
-        <button class="basket-button">Buy now()</button>
-    </aside>
-
-    <section class="menu-section">
-      <div class="headlines">
-        <h2>Burger & Sandwiches</h2>
       </div>
-    </section>
+      <!-- ! -->
+    </main>
+    <div id="order-modal" class="modal hidden" onclick="closeOrderModal()">
+      <div class="modal-content" onclick="prevBubbiling(event)">
+        <button class="modal-close" onclick="closeOrderModal()">x</button>
 
-    <div id="content"></div>
-
-    <section class="menu-section">
-      <div class="headlines">
-        <h2>Pizza</h2>
+        <img src="./img's/icons-lightmode/orderd-icon.png" alt="confirmed" />
+        <h2 class="modal-headline">Order confirmed</h2>
+        <p class="modal-subtitle">Your food is on the way</p>
       </div>
-    </section>
-
-    <div id="pizza"></div>
-
-    <section class="menu-section">
-      <div class="headlines">
-        <h2>Salads</h2>
-      </div>
-    </section>
-    <div id="salads"></div>
+    </div>
 
     <footer class="footer">
       <p>2025 Homie's BurgerHouse</p>
       <p>Imprint</p>
       <p>Cookie Preferences</p>
     </footer>
+
+    <nav class="mobile-nav">
+      <button class="mobile-nav-btn" onclick="window.scrollTo(0, 0)">
+        <img
+          class="mobile-nav-icon"
+          src="./img's/icons-lightmode/takeout_dining_2.png"
+          alt="Menu"
+        />
+      </button>
+
+      <button class="mobile-nav-btn" onclick="openCart()">
+        <span class="cart-icon-wrapper"></span>
+        <img
+          class="mobile-nav-icon"
+          src="./img's/icons-lightmode/shopping_cart.png"
+          alt="Cart"
+        />
+        <span id="cart-count-badge" class="cart-badge">0</span>
+      </button>
+    </nav>
   </body>
 </html>

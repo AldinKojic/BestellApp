@@ -1,71 +1,132 @@
+let orderJustPlaced = false;
+let basket = [];
+const deliveryFee = 4.99;
+
+function init() {
+  renderMeals();
+}
 
 function renderMeals() {
+  const burger = document.getElementById("burger");
+  const pizza = document.getElementById("pizza");
+  const salad = document.getElementById("salad");
+  burger.innerHTML = "";
+  pizza.innerHTML = "";
+  salad.innerHTML = "";
 
-let content =document.getElementById("content");
-content.innerHTML ="";
+  for (let i = 0; i < meals.length; i++) {
+    const meal = meals[i];
+    const dishHTML = template(i, meal);
 
-for (let indexMeal = 0; indexMeal < meals.length; indexMeal++) {
-    content.innerHTML += template(indexMeal);    
+    if (meal.category === "burger") {
+      burger.innerHTML += dishHTML;
+    } else if (meal.category === "pizza") {
+      pizza.innerHTML += dishHTML;
+    } else if (meal.category === "salad") {
+      salad.innerHTML += dishHTML;
+    } else {
+      console.warn("Unknown dish category");
+    }
+  }
 }
- 
-renderPizzas()
- renderSaldads()
- 
+
+function renderBasket() {
+  const basketContent = document.getElementById("basket-content");
+  basketContent.innerHTML = "";
+  basket.forEach((item, i) => {
+    basketContent.innerHTML +=  renderBasketItem(item, i)
+  });
+  updateBasketAlert();
+  updateBasketAlertMobile()
 }
-
-
-
- function renderPizzas() {
-
- let content =document.getElementById("pizza");
- content.innerHTML ="";
-
- for (let indexMeal2 = 0; indexMeal2 < pizzas.length; indexMeal2++) {
-     content.innerHTML += pizzaTemplate(indexMeal2);    
-}
- }
-
- 
- function renderSaldads() {
-
- let content =document.getElementById("salads");
- content.innerHTML ="";
-
- for (let indexSalad = 0; indexSalad < salads.length; indexSalad++) {
-     content.innerHTML += saladsTemplate(indexSalad);    
-}
- }
-
-let basket = [];
-
- function renderBasket(){
-    const basketContent = document.getElementById("basket-content");
-    basketContent.innerHTML=""
-    basket.forEach(item  => {
-        basketContent.innerHTML +=
-        ` 
-          <div class="basket-content">
-            <h5>${item.name}</h5>
-            <div class="basket-item-meta">
-              <p class="basket-price">0</p>
-              <p class="basket-price">${item.price.toFixed(2)}€</p>
-            </div>
-          </div>
-        `
-    });
- }
 
 function addToBasket(index) {
-  basket.push(meals[index]);
+  const meal = meals[index];
+
+  const existingItem = basket.find((item) => item.id === meal.id);
+  if (existingItem) {
+    existingItem.amount += 1;
+  } else {
+    basket.push({
+      id: meal.id,
+      name: meal.name,
+      price: meal.price,
+      amount: 1,
+    });
+  }
+  renderTotals();
   renderBasket();
-}
-function addPizzaToBasket(indexMeal2) {
-  basket.push(pizzas[indexMeal2]);
-    renderBasket();
-}
-
-function addSaladToBasket(indexSalad) {
-  basket.push(salads[indexSalad]);
-    renderBasket();
+  renderTotalsMobile()
+   renderBasketMobile()
+   updateCartBadge() 
 }
 
+function changeAmount(index, delta) {
+  basket[index].amount += delta;
+
+  if (basket[index].amount <= 0) {
+    basket.splice(index, 1);
+  }
+ renderTotals();
+renderBasket();
+renderTotalsMobile();
+renderBasketMobile();
+}
+
+function renderTotals() {
+  let subtotal = 0;
+  for (let i = 0; i < basket.length; i++) {
+    const item = basket[i];
+    subtotal += item.price * item.amount;
+  }
+  let delivery;
+
+  if (basket.length > 0) {
+    delivery = deliveryFee;
+  } else {
+    delivery = 0;
+  }
+
+  let total = subtotal + delivery;
+
+  document.getElementById("subtotal-value").innerHTML = `${subtotal.toFixed( 2 )}€`;
+  document.getElementById("delivery-value").innerHTML = `${delivery.toFixed( 2 )}€`;
+  document.getElementById("total-value").innerHTML = `${total.toFixed(2)}€`;
+  document.getElementById("buy-now-button").innerHTML =
+    "Buy now (" + total.toFixed(2) + "€)";
+}
+
+function orderConfirmed() {
+  const alertBox = document.getElementById("basket-alert");
+  if (basket.length === 0) {
+    alertBox.innerHTML = warning();
+    alertBox.classList.remove("hidden");
+    return;
+  }
+  orderJustPlaced = true;
+  alertBox.classList.add("hidden");
+  alertBox.innerHTML = "";
+  document.getElementById("order-modal").classList.remove("hidden");
+}
+
+function updateBasketAlert() {
+  const alertBox = document.getElementById("basket-alert");
+  alertBox.classList.add("hidden");
+  alertBox.innerHTML = "";
+}
+
+function closeOrderModal() {
+  document.getElementById("order-modal").classList.add("hidden");
+  basket.length = 0;
+
+  renderBasket();
+  renderTotals();
+   renderBasketMobile();
+  renderTotalsMobile();
+  updateCartBadge()
+  orderJustPlaced = false;
+}
+
+function prevBubbiling(event) {
+  event.stopPropagation();
+}
