@@ -130,3 +130,4 @@ function closeOrderModal() {
 function prevBubbiling(event) {
   event.stopPropagation();
 }
+

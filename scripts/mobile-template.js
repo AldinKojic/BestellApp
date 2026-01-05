@@ -1,17 +1,3 @@
-function renderBasketMobileItem(item, i) {
-  return ` 
-    <div class="basket-content">
-      <h5>${item.name}</h5>
-      <div class="basket-item-meta">
-        <button class="icon-btn" onclick="changeAmount(${i}, 1)">${item.amount}x</button>
-        <button class="icon-btn" onclick="changeAmount(${i}, -1)" aria-label="Reduce amount">
-          <img src="./img's/icons-lightmode/delete.png" alt="minus">
-        </button>
-        <p class="basket-price">${(item.price * item.amount).toFixed(2)}€</p>
-      </div>
-    </div>
-  `;
-}
 
 function renderBasketMobile() {
   const basketContent = document.getElementById("basket-content-mobile");
@@ -70,13 +56,6 @@ function orderConfirmedMobile() {
   alertBox.innerHTML = "";
   closeCart()
   document.getElementById("order-modal").classList.remove("hidden");
-}
-
-function warningMobile() {
-  return `
-  <p class="modul-basket-warning" >Your basket is currently empty.
-  </p>
-  ` 
 }
 
 function updateBasketAlertMobile() {
